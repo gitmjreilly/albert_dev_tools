@@ -1,0 +1,6 @@
+# Ignore everything in this dir
+# We're assuming pascal builds will place output here
+*
+# But we don't want to ignore the .gitignore file !!!
+!.gitignore
+
