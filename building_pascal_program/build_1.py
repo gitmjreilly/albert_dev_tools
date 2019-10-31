@@ -19,6 +19,7 @@ if (len(sys.argv) != 2):
 
 
 pascal_include_dir = "~/albert_dev_tools/p_include"
+pascal_include_dir = "."
 output_dir = "./output"
 
 
