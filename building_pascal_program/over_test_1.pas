@@ -461,28 +461,33 @@ var
    value : integer;
 
 begin
-   print("UM+ Tester"); println(1);
+   print("OVER Tester"); println(1);
 
    p := $E000;
    p^ := $0007;
    p := $E001;
-   p^ := $FFFF;
+   p^ := $009;
 
    asm
       SP_FETCH 0xE004 STORE
       0xE000 FETCH
       0xE001 FETCH
-      UM+
-      0xE002 STORE
-      0xE003 STORE
+      OVER
+      0xE00A STORE
+      0xE00B STORE
+      0xE00C STORE
       SP_FETCH 0xE005 STORE
    end;
 
-   p := $E002;
+   p := $E00A;
    value :=  p^;
    print_hex_num(value); println(1);
 
-   p := $E003;
+   p := $E00B;
+   value :=  p^;
+   print_hex_num(value); println(1);
+
+   p := $E00C;
    value :=  p^;
    print_hex_num(value); println(1);
 
