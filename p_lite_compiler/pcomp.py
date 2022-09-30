@@ -16,7 +16,7 @@ import inspect
 #---------------------------------------------------------------------
 def usage():
    """ Print the Usage message.  """
-   print "USAGE: " + sys.argv[0] + "  infile outfile logfile"
+   print(f"USAGE: {sys.argv[0]} infile outfile logfile")
 #---------------------------------------------------------------------
 
 #---------------------------------------------------------------------
