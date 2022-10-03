@@ -118,7 +118,7 @@ class Type_Table(object):
     def add(self, programmer_type_name, description):
         """ Add value to the type_table, programmer_type_nameed by programmer_type_name.  Value must be a
         supported base. """
-        if self.__table__.has_key(programmer_type_name):
+        if programmer_type_name in self.__table__:
             logger.error("Tried to add duplicate programmer_type_name : ", programmer_type_name)
 
         if isinstance(description, Alias_Description):
@@ -132,7 +132,7 @@ class Type_Table(object):
         elif isinstance(description, Pointer_Description):
             self.__table__[programmer_type_name] = description
         else:
-            raise RuntimeError, "Attempt to add bad value to type table. """
+            raise RuntimeError("Attempt to add bad value to type table. ")
 
     def get_data(self, programmer_type_name):
         """ return an description object associated with this programmer_type_name type """
@@ -175,14 +175,14 @@ class Type_Table(object):
    
     def dump(self):
         """ Display the type table. """
-        for (name, value) in self.__table__.iteritems():
-            print name
-            print value
+        for (name, value) in self.__table__.items():
+            print (name)
+            print (value)
 
     def __str__(self):
         """ Return a text representation of the type table """
         tmp = ""
-        for (name, value) in self.__table__.iteritems():
+        for (name, value) in self.__table__.items():
             tmp += str(name) + "\n" + str(value) + "\n"
         return(tmp)
 
@@ -206,7 +206,7 @@ type_table.add('INTEGER', Builtin_Description('INTEGER'))
 
 
 if __name__ == "__main__":
-    print "Initializing typetab module..."
+    print ("Initializing typetab module...")
     logger.init("log.tmp")
     r1 = Record_Description()
     r1.add_field("f1", "INTEGER")
@@ -214,22 +214,22 @@ if __name__ == "__main__":
     r1.add_field("f2", "A_TYPE")
     r1.add_field("f3", "INTEGER")
     type_table.add("REC_TYPE", r1)
-    print "Type table is : "
-    print type_table
+    print ("Type table is : ")
+    print (type_table)
 
     type_name = "REC_TYPE"
-    print "Getting record description for : " + type_name
+    print (f"Getting record description for : {type_name}")
     record_description = type_table.get_data(type_name)
     
     (programmer_type, field_offset) = record_description.get_field_info("f3")
-    print "programmer type  (f3): " + programmer_type
-    print "field offset : " + str(field_offset)
+    print (f"programmer type  (f3): {programmer_type}")
+    print (f"field offset : {field_offset}")
 
     (programmer_type, field_offset) = record_description.get_field_info("f2")
-    print "programmer type  (f2): " + programmer_type
-    print "field offset : " + str(field_offset)
+    print (f"programmer type  (f2):  {programmer_type}")
+    print (f"field offset : {field_offset}")
 
     (programmer_type, field_offset) = record_description.get_field_info("f1")
-    print "programmer type  (f1): " + programmer_type
-    print "field offset : " + str(field_offset)
+    print (f"programmer type  (f1):  {programmer_type}")
+    print (f"field offset : {field_offset}")
 

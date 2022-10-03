@@ -8,8 +8,8 @@ def Emit(Line, LineNum):
     global OutputFile
 
     if NewLineWasEmitted:
-        OutputFile.writelines('               ');
-    OutputFile.writelines(Line + ' ');
+        OutputFile.writelines('               ')
+    OutputFile.writelines(Line + ' ')
     NewLineWasEmitted = False
 
 

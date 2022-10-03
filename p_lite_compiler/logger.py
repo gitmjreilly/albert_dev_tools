@@ -1,5 +1,4 @@
 #---------------------------------------------------------------------
-import cStringIO
 hard_log_file_name = None
 indent_level = 0
 log_file = None
@@ -10,7 +9,7 @@ def init( log_filename):
     global indent_level
     global hard_log_file_name
     hard_log_file_name = log_filename
-    log_file = cStringIO.StringIO() 
+    log_file = open(hard_log_file_name, "w")
     indent_level = 0
 
 def begin_production(production, line_num, look_ahead):
@@ -49,21 +48,17 @@ def error(message, token):
     global indent_level
 
     log_file.writelines("ERROR: " + message + " Token : " + token)
-    print "in logger.error() about to call finish()"
+    print ("in logger.error() about to call finish()")
     finish()
-    raise RuntimeError, "fatal error"
+    raise RuntimeError("fatal error")
 
 def finish():
     global log_file
     global indent_level
-    #get the buffer and close the soft file...
-    val = log_file.getvalue()
     log_file.close()
 
-    print "RUNNING logger.finish()"
-    print "file name is ", hard_log_file_name
-    hard_file = open(hard_log_file_name,'w')
-    print >>hard_file,val 
-    hard_file.close()	
+    print ("RUNNING logger.finish()")
+    print (f"file name is  {hard_log_file_name}")
+ 
 #---------------------------------------------------------------------      
 

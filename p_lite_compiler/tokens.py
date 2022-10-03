@@ -42,7 +42,8 @@ class FileNode(object):
             Stuff = self.Line.split()
             self.LineNum = int(Stuff[1])
             self.fname = Stuff[2].strip()
-            print "    name is[", self.fname, "] num is [", self.LineNum, "]"
+            # print "    name is[", self.fname, "] num is [", self.LineNum, "]"
+            print (f"    name is[{self.fname} num is [{self.LineNum}]")
 
     def IsAtEOL(self):
         """ Return boolean indicating if we have read to EOL. """
@@ -75,7 +76,7 @@ class Tokenizer(object):
         """ Return the Ch and an EOF flag -
         (ch, is_at_eof) = GetCh() """
 
-        if self.returned_ch <> "":
+        if self.returned_ch != "":
             tmp = self.returned_ch
             self.returned_ch = ""
             return(tmp, False)
@@ -83,13 +84,13 @@ class Tokenizer(object):
         if self.FileNodeList.IsAtEOL():
             try:
                 self.FileNodeList.read_line()
-            except RuntimeError, e:
+            except RuntimeError:
                 self.FileNodeList.close()
-                print "DEBUG closing file..."
-                return("", True);
+                print ("DEBUG closing file...")
+                return("", True)
                 # junk lines below...
-                if self.FileNodeList == None:
-                    print "DEBUG returning..."
+                if self.FileNodeList is None:
+                    print ("DEBUG returning...")
                     return("", True)
 
         ch = self.FileNodeList.char_list[self.FileNodeList.Index]
@@ -97,8 +98,8 @@ class Tokenizer(object):
         return(ch, False)
 
     def __unget_ch__(self, ch):
-        if self.returned_ch <> "":
-            raise RuntimeError, "Tokenizer: tried to unget 2 chars in a row."
+        if self.returned_ch != "":
+            raise RuntimeError("Tokenizer: tried to unget 2 chars in a row.")
         self.returned_ch = ch
 
 
@@ -115,7 +116,7 @@ class Tokenizer(object):
 
         state_num = 0
 
-        while state_num <> 99:
+        while state_num != 99:
             (ch, is_at_eof) = self.__GetCh__()
             if is_at_eof:
                 return("")
@@ -324,7 +325,7 @@ class Tokenizer(object):
 
                 if ch == ";":
                     tmp.append(ch)
-                    print "token is ", ch
+                    print (f"token is {ch}")
                     return(ch)
 
                 tmp.append(ch)
@@ -390,7 +391,7 @@ def main():
        token = t.get_token()
        if token == "":
            break
-       print token        
+       print (token)
 
-    print "Done."
+    print ("Done.")
     FinishEmitter()

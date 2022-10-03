@@ -77,7 +77,7 @@ class Symbol_Table(object):
     def add(self, name, variable_classification):
         """ Add variable_classification to symbol table, keyed by name.
         variable_classification should be an instance of a supported class. """
-        if self.__table__.has_key(name):
+        if name in self.__table__:
             logger.error("Tried to add duplicate key : " , name)
         
         if isinstance(variable_classification, Global_Variable):
@@ -92,7 +92,7 @@ class Symbol_Table(object):
             self.__table__[name] = variable_classification
 
         else:
-            raise RuntimeError, "Attempt to add bad value to symbol table"
+            raise RuntimeError("Attempt to add bad value to symbol table")
 
     def get_data(self, name):
         """ return a variable_classification associated with name. """
@@ -100,14 +100,14 @@ class Symbol_Table(object):
 
     def dump(self):
         """ Display the symbol table. """
-        for (name, value) in self.__table__.iteritems():
-            print name
-            print value
+        for (name, value) in self.__table__.items():
+            print (name)
+            print (value)
         
     def __str__(self):
         """ Return text rep of the symbol table. """
         tmp = ""
-        for (name, value) in self.__table__.iteritems():
+        for (name, value) in self.__table__.items():
             tmp += str(name) + "\n" + str(value) + "\n"
         return(tmp)        
 
@@ -115,7 +115,7 @@ class Symbol_Table(object):
 # Scripted Main
 #
 if __name__ == "__main__":
-    print "Running main."
+    print ("Running main.")
     s = Symbol_Table()
     v1 = Procedure_Variable(17)
     v2 = Local_Variable("integer", -2)
